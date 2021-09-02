@@ -13,7 +13,8 @@ Topics we are going to discuss in shell
  7. Conditions
  8. Loops
  
-''''
+```
 #! is called as She-bang , It denotes path of interpreter. Also ensures the code that is present in the file executes with that interpreter. It has to be in the very first line
-''''
+
+```
 
