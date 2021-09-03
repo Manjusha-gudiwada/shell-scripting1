@@ -67,7 +67,7 @@ else
   exit 2
 fi
 
-cddd mongodb-main
+cd mongodb-main
 echo "loading schema"
 mongo < catalogue.js &>>/tmp/log
 mongo < users.js  &>>/tmp/log
