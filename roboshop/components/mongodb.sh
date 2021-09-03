@@ -7,25 +7,68 @@ gpgcheck=1
 enabled=1
 gpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc' >/etc/yum.repos.d/mongodb.repo
 
+if [ $? -eq 0 ]; then
+  echo -e "\e[32mSUCCESS\e[0m"
+else
+  echo -e "\e[31mFAILURE\e[0m"
+fi
+
 echo "installing mongodb"
  yum install -y mongodb-org &>>/tmp/log
+ 
+if [ $? -eq 0 ]; then
+  echo -e "\e[32mSUCCESS\e[0m"
+else
+  echo -e "\e[31mFAILURE\e[0m"
+fi
  
  echo "configuring mongodb"
  
  sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
  
+ if [ $? -eq 0 ]; then
+  echo -e "\e[32mSUCCESS\e[0m"
+else
+  echo -e "\e[31mFAILURE\e[0m"
+fi
+ 
 echo"starting mongodb"
 systemctl enable mongod
 systemctl restart mongod
+
+if [ $? -eq 0 ]; then
+  echo -e "\e[32mSUCCESS\e[0m"
+else
+  echo -e "\e[31mFAILURE\e[0m"
+fi
 
 
 echo"Downloading schema"
 curl -s -L -o /tmp/mongodb.zip "https://github.com/roboshop-devops-project/mongodb/archive/main.zip"
 
+if [ $? -eq 0 ]; then
+  echo -e "\e[32mSUCCESS\e[0m"
+else
+  echo -e "\e[31mFAILURE\e[0m"
+fi
+
 cd /tmp
 echo"extracting scheme"
 unzip -o mongodb.zip &>>/tmp/log
+
+if [ $? -eq 0 ]; then
+  echo -e "\e[32mSUCCESS\e[0m"
+else
+  echo -e "\e[31mFAILURE\e[0m"
+fi
+
 cd mongodb-main
 echo"loading schema"
 mongo < catalogue.j &>>/tmp/log
 mongo < users.js  &>>/tmp/log
+
+if [ $? -eq 0 ]; then
+  echo -e "\e[32mSUCCESS\e[0m"
+else
+  echo -e "\e[31mFAILURE\e[0m"
+fi
