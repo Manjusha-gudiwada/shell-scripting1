@@ -10,7 +10,7 @@ Status_Check()
  fi
  }
  
- Print()
+ print()
   {
    echo -n -e "$1 \t- "
   }
