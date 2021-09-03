@@ -32,7 +32,7 @@ else
   echo -e "\e[31mFAILURE\e[0m"
 fi
  
-echo"starting mongodb"
+echo "starting mongodb"
 systemctl enable mongod
 systemctl restart mongod
 
@@ -42,8 +42,7 @@ else
   echo -e "\e[31mFAILURE\e[0m"
 fi
 
-
-echo"Downloading schema"
+echo "Downloading schema"
 curl -s -L -o /tmp/mongodb.zip "https://github.com/roboshop-devops-project/mongodb/archive/main.zip"
 
 if [ $? -eq 0 ]; then
@@ -53,7 +52,7 @@ else
 fi
 
 cd /tmp
-echo"extracting scheme"
+echo "extracting scheme"
 unzip -o mongodb.zip &>>/tmp/log
 
 if [ $? -eq 0 ]; then
@@ -63,8 +62,8 @@ else
 fi
 
 cd mongodb-main
-echo"loading schema"
-mongo < catalogue.j &>>/tmp/log
+echo "loading schema"
+mongo < catalogue.js &>>/tmp/log
 mongo < users.js  &>>/tmp/log
 
 if [ $? -eq 0 ]; then
