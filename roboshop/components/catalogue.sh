@@ -37,5 +37,5 @@ Status_Check $?
 chown roboshop:roboshop -R /home/roboshop
 
 print "setup systemd service"
-mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.service && systemctl daemon-reload && systemctl start catalogue &>>$LOG && systemctl enable catalogue
+mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.service && systemctl daemon-reload && systemctl start catalogue &>>$LOG && systemctl enable catalogue &>>$LOG
 Status_Check $?
