@@ -12,7 +12,7 @@ yum-config-manager --enable remi &>>$LOG
 Status_Check $?
 
 print "install redis repos"
-yum install redis -y
+yum install redis -y &>>$LOG
 Status_Check $?
 
 print "configure redis ip adress"
