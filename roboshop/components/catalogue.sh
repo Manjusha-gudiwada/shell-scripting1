@@ -23,7 +23,7 @@ mv catalogue-main catalogue
 Status_Check $?
 
 cd /home/roboshop/catalogue
-npm install 
+npm install --unsafe-perm &>>$LOG # this is written becoz we have to switch to user and install
 
 # mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.service
 # systemctl daemon-reload
