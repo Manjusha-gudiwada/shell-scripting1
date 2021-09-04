@@ -25,9 +25,8 @@ Status_Check $?
 
 print "Extracting catalogue"
 cd /home/roboshop
-rm -rf catalogue # in order to avoid many times unzip of file we are removing content inside it before running
-unzip /tmp/catalogue.zip &>>$LOG
-mv catalogue-main catalogue
+# in order to avoid many times unzip of file we are removing content inside it before running
+rm -rf catalogue && unzip /tmp/catalogue.zip &>>$LOG && mv catalogue-main catalogue
 Status_Check $?
 
 print "downloading nodejs dependencies"
@@ -36,7 +35,7 @@ npm install --unsafe-perm &>>$LOG # this is written becoz we have to switch to u
 Status_Check $?
 
 chown roboshop:roboshop -R /home/roboshop
-# mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.service
-# systemctl daemon-reload
-# systemctl start catalogue
-# systemctl enable catalogue
+
+print "setup systemd service"
+mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.service && systemctl daemon-reload && systemctl start catalogue &>>$LOG && systemctl enable catalogue
+Status_Check $?
