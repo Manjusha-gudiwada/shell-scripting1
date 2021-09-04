@@ -25,6 +25,7 @@ Status_Check $?
 
 print "Extracting catalogue"
 cd /home/roboshop
+rm -rf catalogue # in order to avoid many times unzip of file we are removing content inside it before running
 unzip /tmp/catalogue.zip &>>$LOG
 mv catalogue-main catalogue
 Status_Check $?
