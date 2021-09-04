@@ -12,6 +12,7 @@ Status_Check()
  
  print()
   {
+   echo -e "\n\t\t\e[36m---------------$1------------\e[0m\n" >>$LOG
    echo -n -e "$1 \t- "
   }
   
