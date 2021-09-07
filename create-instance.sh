@@ -9,4 +9,4 @@ echo "Input is missing"
 exit 1
 fi
 
-Ip=$(aws ec2 run-instances --launch-template LaunchTemplateId=$LID,Version=$LVER --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Instance_Name}" "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=Instance_Name}" | jq .Instances[].PrivateIpAddress | sed -e 's/"//g')
+Ip=$(aws ec2 run-instances --launch-template LaunchTemplateId=$LID,Version=$LVER --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Instance_Name}]" "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=Instance_Name}]" | jq .Instances[].PrivateIpAddress | sed -e 's/"//g')
