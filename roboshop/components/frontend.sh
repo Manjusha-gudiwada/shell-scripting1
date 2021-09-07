@@ -16,8 +16,12 @@ print "Extract frontend archive"
 rm -rf /usr/share/nginx/* && cd /usr/share/nginx &&  unzip -o /tmp/frontend.zip &>>$LOG && mv frontend-main/* . && mv static html  &>>$LOG
 Status_Check $?
 
-print "update nginx Roboshop confg file" 
+print "move nginx Roboshop confg file" 
 mv localhost.conf /etc/nginx/default.d/roboshop.conf
+Status_Check $?
+
+print "update Roboshop confg file" 
+sed -i -e '/catalogue/ s/localhost/catalogue'
 Status_Check $?
 
 print "restart nginx\t\t"
