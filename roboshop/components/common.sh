@@ -58,7 +58,7 @@ SystemD-Setup() {
 
   print "update systemd service"
 
-sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' /home/roboshop/${component}/systemd.service
+sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' /home/roboshop/${component}/systemd.service
 Status_Check $?
 
 print "setup systemD service file"
