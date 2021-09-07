@@ -6,26 +6,26 @@ Instance_Name=$1
 
 
 
-if [ -z "${Instance_Name}" ]; then
+if [ -z "${INSTANCE_NAME}" ]; then
 echo "Input is missing"
 exit 1
 fi
 
-aws ec2 describe-instances --filters "Name=tag:Name,Values=$Instance_Name" | jq .Reservations[].Instances[].State.Name | grep running &>/dev/null
+aws ec2 describe-instances --filters "Name=tag:Name,Values=$INSTANCE_NAME" | jq .Reservations[].Instances[].State.Name | grep running &>/dev/null
 
 if [ $? -eq 0 ]; then
-echo "Instance $Instance_Name is already running"
+echo "Instance $INSTANCE_NAME is already running"
 exit 0
 fi
 
-aws ec2 describe-instances --filters "Name=tag:Name,Values=$Instance_Name" | jq .Reservations[].Instances[].State.Name | grep stopped
+aws ec2 describe-instances --filters "Name=tag:Name,Values=$INSTANCE_NAME" | jq .Reservations[].Instances[].State.Name | grep stopped
 
 if [ $? -eq 0 ]; then
-echo "Instance $Instance_Name is already created & stopped"
+echo "Instance $INSTANCE_NAME is already created & stopped"
 exit 0
 fi
 
-Ip=$(aws ec2 run-instances --launch-template LaunchTemplateId=$LID,Version=$LVER --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$Instance_Name}]" "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=$Instance_Name}]" | jq .Instances[].PrivateIpAddress) | sed -e 's/"//g'
+Ip=$(aws ec2 run-instances --launch-template LaunchTemplateId=$LID,Version=$LVER --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE_NAME}]" "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=$INSTANCE_NAME}]" | jq .Instances[].PrivateIpAddress) | sed -e 's/"//g'
 
-sed -e "s/INSTANCE_NAME/$Instance_Name/"  -e "s/INSTANCE_IP/$IP/" record.json >/tmp/record.json
-aws route53 change-resource-record-sets --hosted-zone-id Z07194041T4UZY9IDT2AQ --change-batch file:///tmp/record.json | jq  
+sed -e "s/INSTANCE_NAME/$INSTANCE_NAME/" -e "s/INSTANCE_IP/$IP/" record.json >/tmp/record.json
+aws route53 change-resource-record-sets --hosted-zone-id Z06421191721I0AOBUGO2 --change-batch file:///tmp/record.json | jq
