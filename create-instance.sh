@@ -18,7 +18,7 @@ echo "Instance $Instance_Name is already running"
 exit 0
 fi
 
-aws ec2 describe-instances --filters "Name=tag:Name,Values=$Instance_Name" | jq .Reservations[].Instances[].State.Name | grep stopped &>/dev/null
+aws ec2 describe-instances --filters "Name=tag:Name,Values=$Instance_Name" | jq .Reservations[].Instances[].State.Name | grep stopped
 
 if [ $? -eq 0 ]; then
 echo "Instance $Instance_Name is already created & stopped"
