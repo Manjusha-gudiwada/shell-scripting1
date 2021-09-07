@@ -26,4 +26,6 @@ exit 0
 fi
 
 Ip=$(aws ec2 run-instances --launch-template LaunchTemplateId=$LID,Version=$LVER --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$Instance_Name}]" "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=$Instance_Name}]" | jq .Instances[].PrivateIpAddress) | sed -e 's/"//g'
-    
+
+sed -e "s/Instance_Name/$Instance_Name/"  -e "s/Instance_IP/$IP/" record.json >/tmp/record.json
+aws route53 change-resource-record-sets --hosted-zone-id Z07194041T4UZY9IDT2AQ --change-batch file:///tmp/record.json | jq
