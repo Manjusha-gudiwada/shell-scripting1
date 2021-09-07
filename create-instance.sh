@@ -2,7 +2,7 @@
 
 LID="lt-0a0bf15e726203db3"
 LVER=1
-Instance_Name=$1
+INSTANCE_NAME=$1
 
 
 
