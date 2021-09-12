@@ -2,5 +2,5 @@
 
 source components/common.sh
 
-component=catalogue
+component=cart
 NODEJS
