@@ -129,5 +129,5 @@ PYTHON() {
   print "update roboshop user in config"
   sed -i -e "/uid/ c uid=${USERID}" -e "/gid/ c gid=${GROUPID}" /home/roboshop/payment/payment.ini  &>>$LOG
   Status_Check $?
-
+  SystemD-Setup
 }
