@@ -127,7 +127,7 @@ PYTHON() {
   GROUPID=$(id -g roboshop)
 
   print "update roboshop user in config"
-  sed -i -e "/uid/ c uid=${USERID}" -e "/uid/ c gid=${GROUPID}" /home/roboshop/payment/payment.ini  &>>$LOG
+  sed -i -e "/uid/ c uid=${USERID}" -e "/gid/ c gid=${GROUPID}" /home/roboshop/payment/payment.ini  &>>$LOG
   Status_Check $?
 
 }
