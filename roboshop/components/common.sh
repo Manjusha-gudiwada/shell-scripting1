@@ -42,11 +42,11 @@ Status_Check $?
 }
 
 DOWNLOAD() {
-print "downloading ${component} "
+print "downloading ${component}\t "
 curl -s -L -o /tmp/${component}.zip "https://github.com/roboshop-devops-project/${component}/archive/main.zip"
 Status_Check $?
 
-print "Extracting ${component}"
+print "Extracting ${component}\t"
 cd /home/roboshop
 # in order to avoid many times unzip of file we are removing content inside it before running
 rm -rf ${component} && unzip /tmp/${component}.zip &>>$LOG && mv ${component}-main ${component}
@@ -91,7 +91,7 @@ SystemD-Setup
 }
 
 JAVA() {
-  print "installing maven"
+  print "installing maven\t"
   yum install maven -y &>>$LOG
   Status_Check $?
 
