@@ -89,3 +89,21 @@ SystemD-Setup
 
 
 }
+
+JAVA() {
+  print "installing maven"
+  yum install maven -y &>>$LOG
+  Status_Check $?
+
+  ADD_APP_USER
+  DOWNLOAD
+  cd /home/roboshop/shipping
+  print "make shipping package\t"
+  mvn clean package &>>$LOG
+  Status_Check $?
+  print "renaming shipping package"
+  mv target/shipping-1.0.jar shipping.jar &>>$LOG
+  Status_Check $?
+
+  chown roboshop:roboshop -R /home/roboshop
+}

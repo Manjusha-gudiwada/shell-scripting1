@@ -18,6 +18,9 @@ cart: ## install cart.
 	
 mysql: ## install mysql.
 	@bash components/mysql.sh
+
+shipping:	## Install Shipping
+	@bash components/shipping.sh
 	
 rabbitmq: ## install rabbitmq.
 	@bash components/rabbitmq.sh
