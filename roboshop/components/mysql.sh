@@ -3,7 +3,7 @@
 source components/common.sh
 
 
-print "setup mysql\t\t"
+print "setup mysql\t\t\t"
 echo '[mysql57-community]
 name=MySQL 5.7 Community Server
 baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/7/$basearch/
@@ -11,11 +11,11 @@ enabled=1
 gpgcheck=0' > /etc/yum.repos.d/mysql.repo
 Status_Check $?
 
-print "Install MySQL\t\t"
+print "Install MySQL\t\t\t"
 yum remove mariadb-libs -y &>>$LOG && yum install mysql-community-server -y &>>$LOG
 Status_Check $?
 
-print "Start MySQL\t\t"
+print "Start MySQL\t\t\t"
 systemctl enable mysqld &>>$LOG &&  systemctl start mysqld &>>$LOG
 Status_Check $?
 
@@ -35,9 +35,12 @@ Status_Check $?
 
 
 print "uninstall password validate_plugin"
-
+echo "show plugins;" | mysql -u root -p"RoboShop@1" | grep -i validate_password &>>$LOG
+if [ $? -eq 0]; then
 echo "uninstall plugin validate_password;" >/tmp/pass.sql
 mysql -u root -p"RoboShop@1" </tmp/pass.sql &>>$LOG
+else
+echo "password plugin is already uninstalled" &>>$LOG
 Status_Check $?
 
 
@@ -45,10 +48,10 @@ print "downloading schema\t"
 curl -s -L -o /tmp/mysql.zip "https://github.com/roboshop-devops-project/mysql/archive/main.zip" &>>$LOG
 Status_Check $?
 
-print "extract schema file\t"
+print "extract schema file\t\t"
 cd /tmp && unzip -o mysql.zip &>>$LOG
 Status_Check $?
 
-print "loading schema\t\t"
+print "loading schema\t\t\t"
 cd mysql-main && mysql -u root -pRoboShop@1 <shipping.sql &>>$LOG
 Status_Check $?
