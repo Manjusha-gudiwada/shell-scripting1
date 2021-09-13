@@ -28,4 +28,5 @@ if [ $? -eq 0 ]; then
 rabbitmqctl add_user roboshop roboshop123 &>>$LOG
 else
 rabbitmqctl set_user_tags roboshop administrator &>>$LOG && rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$LOG
+fi
 Status_Check $?
